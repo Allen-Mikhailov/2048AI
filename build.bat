@@ -1,6 +1,6 @@
 @echo off
-javac Game.java 
-javac Network.java 
-javac runner.java 
+javac GameBoard.java 
+javac Display.java
+javac Simulate.java
 
-java runner.java
+java Runner.java
