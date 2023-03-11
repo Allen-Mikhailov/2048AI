@@ -60,7 +60,7 @@ public class GameBoard {
             for (int x = 0; x < size; x++)
             {
                 window.drawRect((int)(x*tileSize), (int)(y*tileSize), (int) tileSize, (int) tileSize);
-                window.drawString(Integer.toString(board[y][x]), (int)(x*tileSize), (int)(y*tileSize));
+                window.drawString(Integer.toString(board[y][x]), (int)((x+.5)*tileSize), (int)((y+.5)*tileSize));
             }
         }
     }
