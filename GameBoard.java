@@ -11,6 +11,7 @@ import java.lang.reflect.Array;
 public class GameBoard {
     private int[][] board;
     private int size = 4;
+    public boolean valid = true;
 
     public ArrayList<Integer> getOpenSpaces()
     {
@@ -92,6 +93,7 @@ public class GameBoard {
         board = new int[4][4];
         addTile();
         addTile();
+        size = 4;
     }
 
     // 0 is right, 1 is left, 2 is up, 3 is down
@@ -130,7 +132,7 @@ public class GameBoard {
                         if (board[y][x] != 0)  
                         {
                             int place = x;
-                            while (place+1 < size && board[y][place-1] == 0)
+                            while (place-1 > -1 && board[y][place-1] == 0)
                                 place--;
                             
                             int temp = board[y][x];
@@ -170,7 +172,7 @@ public class GameBoard {
                         if (board[y][x] != 0)  
                         {
                             int place = y;
-                            while (place+1 < size && board[place-1][x] == 0)
+                            while (place-1 > -1 && board[place-1][x] == 0)
                                 place--;
                             
                             int temp = board[y][x];
@@ -253,6 +255,9 @@ public class GameBoard {
 
     public boolean move(int direction)
     {
+        if (direction == -1)
+            return true;
+
         int changes = 1;
         shift(direction);
         combine(direction);
@@ -261,11 +266,29 @@ public class GameBoard {
         return changes == 0;
     }
 
+    public GameBoard(GameBoard parent)
+    {
+        board = parent.board.clone();
+        size = parent.size;
+    }
+
+    public GameBoard(GameBoard parent, int direction)
+    {
+        board = parent.board.clone();
+        size = parent.size;
+        move(direction);
+    }
+
     public GameBoard(GameBoard parent, int direction, int verse)
     {
         board = parent.board.clone();
         size = parent.size;
-        addTile(verse);
+        move(direction);
+
+        if (getOpenSpaces().size() < verse)
+            addTile(verse);
+        else
+            valid = false;
     }
 
     public void draw(Graphics window)

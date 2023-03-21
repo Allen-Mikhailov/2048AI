@@ -7,31 +7,59 @@ class Move
 {
     private GameBoard state;
     public double score;
-    private int bestMove;
+    public int bestMove;
 
-    private final int maxItt = 5;
-    
-    public Move(GameBoard s, int dir, int itt, int verse)
+    private final int maxItt = 2;
+    private int itteration;
+
+    private void getBestAction()
     {
-
-        state = s;
-        s.move(dir);
-        s.addTile(verse);
-
-        if (itt == maxItt)
-            score = s.score();
+        if (itteration == maxItt)
+            score = state.score();
         else {
-            int highestAverageScore = 0;
+            double highestAverageScore = 0;
             int bestAction = 0;
 
             for (int i = 0; i < 4; i++)
-            {
-                
+            {   
+                double scoreSum = 0;
+
+                GameBoard c = new GameBoard(state, i);
+                int openSpaces = c.getOpenSpaces().size();
+
+                for (int j = 0; j < openSpaces*2; j++)
+                {
+                    Move m = new Move(c, itteration+1, j);
+                    scoreSum += m.score * (j%2 == 0 ? .9 : .1);
+                }
+
+                if (highestAverageScore < scoreSum/openSpaces)
+                {
+                    highestAverageScore = scoreSum/openSpaces;
+                    bestAction = i;
+                }
             }
 
             score = highestAverageScore;
             bestMove = bestAction;
         }
+    }
+    
+    public Move(GameBoard s)
+    {
+        state = s;
+        itteration = 0;
+        getBestAction();
+    }
+
+    public Move(GameBoard s, int itt, int verse)
+    {
+        s = new GameBoard(s);
+        s.addTile(verse);
+        state = s;
+
+        itteration = itt;
+         getBestAction();
     }
 }
 
@@ -47,8 +75,8 @@ public class Simulate {
 
     public void draw(Graphics window)
     {
-        
-        current.move(0);
+        Move m = new Move(current);
+        current.move(m.bestMove);
         current.addTile();
         current.draw(window);
     }
