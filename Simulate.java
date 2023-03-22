@@ -27,10 +27,15 @@ class Move
                 GameBoard c = new GameBoard(state, i);
                 int openSpaces = c.getOpenSpaces().size();
 
-                for (int j = 0; j < openSpaces*2; j++)
+                System.out.println(openSpaces);
+                if (openSpaces == 0)
+                    continue;
+                
+
+                for (int j = 0; j < openSpaces/2; j++)
                 {
                     Move m = new Move(c, itteration+1, j);
-                    scoreSum += m.score * (j%2 == 0 ? .9 : .1);
+                    scoreSum += m.score; //* (j%2 == 0 ? .9 : .1);
                 }
 
                 if (highestAverageScore < scoreSum/openSpaces)

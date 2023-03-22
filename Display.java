@@ -58,8 +58,8 @@ public class Display extends Canvas implements Runnable
    	{
    		while(true)
    		{
-   		   Thread.currentThread().sleep(250);
             repaint();
+            Thread.currentThread().sleep(25000);
          }
       }catch(Exception e)
       {

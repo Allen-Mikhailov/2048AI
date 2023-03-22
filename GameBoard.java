@@ -54,13 +54,13 @@ public class GameBoard {
     {
         ArrayList<Integer> openSpaces = getOpenSpaces();
 
-        int spaceIndex = verse/2;
+        // int spaceIndex = verse/2;
 
         int newTile = 2;
-        if (verse%2 == 1)
-            newTile = 4;
+        // if (verse%2 == 1)
+        //     newTile = 4;
         
-        board[openSpaces.get(spaceIndex*2)][openSpaces.get(spaceIndex*2+1)] = newTile;
+        board[openSpaces.get(verse*2)][openSpaces.get(verse*2+1)] = newTile;
     }
 
     public double score()
