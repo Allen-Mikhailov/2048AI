@@ -116,7 +116,7 @@ public class GameBoard {
 
                 // Bottom right advanatge
 
-                baseScore *= 1 + Math.hypot(x+1, y+1) / maxHypot;
+                baseScore *= 1 + (Math.hypot(x+1, y+1) / maxHypot) * 2;
 
                 s += baseScore;
             }
@@ -291,6 +291,18 @@ public class GameBoard {
         }
     }
 
+    private final Color startColor = new Color(255, 255, 255);
+    private final Color endColor = new Color(222, 172, 35);
+
+    private Color lerp(Color c1, Color c2, double a)
+    {
+        return new Color(
+            (int) Math.max(Math.min(c1.getRed()*(1-a) +c2.getRed(),     255), 0), 
+            (int) Math.max(Math.min(c1.getGreen()*(1-a) +c2.getGreen(), 255), 0), 
+            (int) Math.max(Math.min(c1.getBlue()*(1-a) +c2.getBlue(),   255), 0)
+            );
+    }
+
     public void draw(Graphics window)
     {
         window.setColor(Color.black);
@@ -302,6 +314,11 @@ public class GameBoard {
         {
             for (int x = 0; x < size; x++)
             {
+                // System.out.println(Math.log10(board[y][x])/Math.log(2)/10);
+                window.setColor(lerp(startColor, endColor, Math.log10(board[y][x])/Math.log(2)/6));
+                window.fillRect((int)(x*tileSize), (int)(y*tileSize), (int) tileSize, (int) tileSize);
+
+                window.setColor(Color.black);
                 window.drawRect((int)(x*tileSize), (int)(y*tileSize), (int) tileSize, (int) tileSize);
 
                 FontMetrics fontSize = window.getFontMetrics();

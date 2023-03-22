@@ -9,7 +9,7 @@ class Move
     public double score;
     public int bestMove;
 
-    private final int maxItt = 2;
+    private final int maxItt = 3;
     private int itteration;
 
     private void getBestAction()
