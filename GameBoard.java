@@ -13,6 +13,44 @@ public class GameBoard {
     private int size = 4;
     public boolean valid = true;
 
+    public boolean move(int direction)
+    {
+        if (direction == -1)
+            return true;
+
+        int changes = 1;
+        shift(direction);
+        combine(direction);
+        shift(direction);
+
+        return changes == 0;
+    }
+
+    private void cloneBoard(int[][] b)
+    {
+        board = new int[b.length][b[0].length];
+        for (int y = 0; y < b.length; y++)
+        {
+            for (int x = 0; x < b[y].length; x++)
+            {
+                board[y][x] = b[y][x];
+            }
+        }
+    }
+
+    public GameBoard(GameBoard parent)
+    {
+        cloneBoard(parent.board);
+        size = parent.size;
+    }
+
+    public GameBoard(GameBoard parent, int direction)
+    {
+        cloneBoard(parent.board);
+        size = parent.size;
+        move(direction);
+    }
+
     public ArrayList<Integer> getOpenSpaces()
     {
         ArrayList<Integer> openSpaces = new ArrayList<Integer>();
@@ -251,44 +289,6 @@ public class GameBoard {
                 }
                 break;
         }
-    }
-
-    public boolean move(int direction)
-    {
-        if (direction == -1)
-            return true;
-
-        int changes = 1;
-        shift(direction);
-        combine(direction);
-        shift(direction);
-
-        return changes == 0;
-    }
-
-    public GameBoard(GameBoard parent)
-    {
-        board = parent.board.clone();
-        size = parent.size;
-    }
-
-    public GameBoard(GameBoard parent, int direction)
-    {
-        board = parent.board.clone();
-        size = parent.size;
-        move(direction);
-    }
-
-    public GameBoard(GameBoard parent, int direction, int verse)
-    {
-        board = parent.board.clone();
-        size = parent.size;
-        move(direction);
-
-        if (getOpenSpaces().size() < verse)
-            addTile(verse);
-        else
-            valid = false;
     }
 
     public void draw(Graphics window)

@@ -25,14 +25,13 @@ class Move
                 double scoreSum = 0;
 
                 GameBoard c = new GameBoard(state, i);
-                int openSpaces = c.getOpenSpaces().size();
-
-                System.out.println(openSpaces);
+                int openSpaces = c.getOpenSpaces().size()/2;
+                
                 if (openSpaces == 0)
                     continue;
                 
 
-                for (int j = 0; j < openSpaces/2; j++)
+                for (int j = 0; j < openSpaces; j++)
                 {
                     Move m = new Move(c, itteration+1, j);
                     scoreSum += m.score; //* (j%2 == 0 ? .9 : .1);
@@ -64,7 +63,7 @@ class Move
         state = s;
 
         itteration = itt;
-         getBestAction();
+        getBestAction();
     }
 }
 
