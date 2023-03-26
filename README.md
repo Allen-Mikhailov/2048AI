@@ -15,5 +15,5 @@ java Runner.java
 
 Batch file (If changes were made)
 ```bat
-&./c.bat
+./c.bat
 ```
