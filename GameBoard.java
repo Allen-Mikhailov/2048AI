@@ -116,7 +116,7 @@ public class GameBoard {
 
                 // Bottom right advanatge
 
-                baseScore *= 1 + (Math.hypot(x+1, y+1) / maxHypot) * 2;
+                baseScore *= 1 + (Math.hypot(x+1, y+1) / maxHypot) * 5;
 
                 s += baseScore;
             }
@@ -314,6 +314,9 @@ public class GameBoard {
         {
             for (int x = 0; x < size; x++)
             {
+                if (board[y][x] == 0)
+                    continue;
+
                 // System.out.println(Math.log10(board[y][x])/Math.log(2)/10);
                 window.setColor(lerp(startColor, endColor, Math.log10(board[y][x])/Math.log(2)/6));
                 window.fillRect((int)(x*tileSize), (int)(y*tileSize), (int) tileSize, (int) tileSize);

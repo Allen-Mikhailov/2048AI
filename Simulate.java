@@ -28,7 +28,10 @@ class Move
                 int openSpaces = c.getOpenSpaces().size()/2;
                 
                 if (openSpaces == 0)
+                {
+                    scoreSum -= c.score();
                     continue;
+                }
                 
 
                 for (int j = 0; j < openSpaces; j++)
@@ -70,6 +73,7 @@ class Move
 public class Simulate {
 
     private GameBoard current;
+    private int move = 0;
 
     public Simulate()
     {
@@ -83,5 +87,8 @@ public class Simulate {
         current.move(m.bestMove);
         current.addTile();
         current.draw(window);
+
+        move++;
+        window.drawString(""+move, 600, 100);
     }
 }
