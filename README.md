@@ -1,10 +1,10 @@
 # 2048AI
 This is a simple java program that
-will play the game 2048 by itself
+will play the game 2048 by itself.
 
-its a simple AI that looks for all
+It's a simple AI that looks for all
 possibilities and picks the best move 
-based on it
+based on it.
 
 ### Running
 
