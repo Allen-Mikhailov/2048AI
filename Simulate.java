@@ -2,18 +2,33 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Canvas;
+import java.util.HashMap;
 
 class Move
 {
     private GameBoard state;
     public double score;
-    public int bestMove;
+    public int bestMove = -1;
+
+    private static HashMap<String, Move> allMoves = new HashMap<String, Move>();
 
     private final int maxItt = 3;
     private int itteration;
 
     private void getBestAction()
     {
+        String s = toString();
+        Move get = allMoves.get(s);
+        if (get != null && get.itteration <= itteration && false)
+        {
+            // System.out.println("Saved");
+            bestMove = get.bestMove;
+            return;
+        } else {
+            allMoves.put(s, this);
+        }
+
+
         if (itteration == maxItt)
             score = state.score();
         else {
@@ -67,6 +82,19 @@ class Move
 
         itteration = itt;
         getBestAction();
+    }
+
+    public String toString()
+    {
+        String str = "";
+        for (int y = 0; y < 4; y++)
+        {
+            for (int x = 0; x < 4; x++)
+            {
+                str+= state.board[x][y]+",";
+            }
+        }
+        return str;
     }
 }
 

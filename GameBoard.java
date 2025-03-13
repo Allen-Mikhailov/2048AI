@@ -9,7 +9,7 @@ import java.awt.Rectangle;
 import java.lang.reflect.Array;
 
 public class GameBoard {
-    private int[][] board;
+    public int[][] board;
     private int size = 4;
     public boolean valid = true;
 
